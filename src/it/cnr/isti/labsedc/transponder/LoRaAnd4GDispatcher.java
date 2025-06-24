@@ -33,7 +33,6 @@ public class LoRaAnd4GDispatcher extends Thread {
 		try {		
 			System.out.println("SETUP port at " + LoRaAnd4GDispatcher.deviceLoRaSpeed + " baud with: stty -F "+ LoRaAnd4GDispatcher.deviceLoRa);
 			String[] cmdline = { "sh", "-c", "stty -F "+ LoRaAnd4GDispatcher.deviceLoRa, " " + LoRaAnd4GDispatcher.deviceLoRaSpeed};
-			System.out.println(cmdline[0] + " " + cmdline[1] + " " + cmdline[2] + cmdline[3]);
 			Process pr = Runtime.getRuntime().exec(cmdline);
 			pr.waitFor();					
 			} catch(IOException | InterruptedException e) {		

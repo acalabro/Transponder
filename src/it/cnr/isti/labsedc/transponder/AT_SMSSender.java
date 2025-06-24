@@ -36,7 +36,7 @@ public class AT_SMSSender extends Thread {
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
 
         if (serialPort.openPort()) {
-            System.out.println("Porta " + portName + " aperta");
+            System.out.println("Port " + portName + " opened");
 
             try (OutputStream outputStream = serialPort.getOutputStream();
                  InputStream inputStream = serialPort.getInputStream()) {
@@ -70,7 +70,7 @@ public class AT_SMSSender extends Thread {
     }
 
     public static void main(String[] args) {
-        AT_SMSSender thread = new AT_SMSSender("COM2", 9600, 0000, false, "+393939393939", "Tampe Finocchio");
+        AT_SMSSender thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+3934734734", "Tampe Finocchio");
         thread.start();
     }
 }

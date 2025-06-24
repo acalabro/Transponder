@@ -19,8 +19,6 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
-import javax.swing.JPanel;
-import java.awt.Button;
 
 public class StartupConfiguration {
 
@@ -81,6 +79,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblNewLabel);
 		
 		loradevice = new JTextField();
+		loradevice.setText("/dev/ttyUSB0");
 		loradevice.setBounds(153, 31, 114, 21);
 		frmTransponderLauncher.getContentPane().add(loradevice);
 		loradevice.setColumns(10);
@@ -90,6 +89,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblNewLabel_1);
 		
 		wifidevice = new JTextField();
+		wifidevice.setText("wlan0");
 		wifidevice.setColumns(10);
 		wifidevice.setBounds(153, 78, 114, 21);
 		frmTransponderLauncher.getContentPane().add(wifidevice);
@@ -99,6 +99,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblGpsDevice);
 		
 		gpsdevice = new JTextField();
+		gpsdevice.setText("/dev/ttyACM0");
 		gpsdevice.setColumns(10);
 		gpsdevice.setBounds(386, 78, 114, 21);
 		frmTransponderLauncher.getContentPane().add(gpsdevice);
@@ -108,6 +109,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblMobileDevice);
 		
 		mobiledevice = new JTextField();
+		mobiledevice.setText("/dev/ttyS0");
 		mobiledevice.setColumns(10);
 		mobiledevice.setBounds(153, 172, 114, 21);
 		frmTransponderLauncher.getContentPane().add(mobiledevice);
@@ -117,6 +119,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblPortSpeed_1);
 		
 		smsrecipient = new JTextField();
+		smsrecipient.setText("+39347347347");
 		smsrecipient.setColumns(10);
 		smsrecipient.setBounds(153, 219, 114, 21);
 		frmTransponderLauncher.getContentPane().add(smsrecipient);
@@ -126,6 +129,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblPortSpeed);
 		
 		homepath = new JTextField();
+		homepath.setText("/home/acalabro/Desktop/");
 		homepath.setColumns(10);
 		homepath.setBounds(153, 125, 215, 21);
 		frmTransponderLauncher.getContentPane().add(homepath);
@@ -142,7 +146,7 @@ public class StartupConfiguration {
 		
 		JComboBox<String> mobiledevicespeed = new JComboBox<String>();
 		mobiledevicespeed.setModel(new DefaultComboBoxModel<String>(new String[] {"110", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"}));
-		mobiledevicespeed.setSelectedIndex(5);
+		mobiledevicespeed.setSelectedIndex(9);
 		mobiledevicespeed.setBounds(386, 169, 114, 26);
 		frmTransponderLauncher.getContentPane().add(mobiledevicespeed);
 		
@@ -161,6 +165,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblNewLabel_8_2);
 		
 		pincode = new JTextField();
+		pincode.setText("1234");
 		pincode.setColumns(10);
 		pincode.setBounds(153, 266, 114, 21);
 		frmTransponderLauncher.getContentPane().add(pincode);
@@ -175,7 +180,7 @@ public class StartupConfiguration {
 				if (isOK()) {
 				Transponder launcher = new Transponder(
 						loradevice.getText(), 
-						Integer.getInteger(loraportspeed.getSelectedItem().toString()), 
+						Integer.parseInt(loraportspeed.getSelectedItem().toString()), 
 						wifidevice.getText(), 
 						homepath.getText(), 
 						gpsdevice.getText(), 
