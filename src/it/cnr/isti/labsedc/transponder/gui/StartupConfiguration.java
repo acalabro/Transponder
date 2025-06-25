@@ -72,7 +72,7 @@ public class StartupConfiguration {
 		frmTransponderLauncher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTransponderLauncher.getContentPane().setLayout(null);
 		
-		ImageIcon transponderLogo = new ImageIcon("logo.png");
+	
 		
 		JLabel lblNewLabel = new JLabel("LoRa Device");
 		lblNewLabel.setBounds(63, 33, 72, 17);
@@ -139,13 +139,15 @@ public class StartupConfiguration {
 		frmTransponderLauncher.getContentPane().add(lblNewLabel_8);
 		
 		JComboBox<String> loraportspeed = new JComboBox<String>();
-		loraportspeed.setModel(new DefaultComboBoxModel<String>(new String[] {"110", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"}));
+		loraportspeed.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"110", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"}));
 		loraportspeed.setSelectedIndex(9);
 		loraportspeed.setBounds(386, 28, 114, 26);
 		frmTransponderLauncher.getContentPane().add(loraportspeed);
 		
 		JComboBox<String> mobiledevicespeed = new JComboBox<String>();
-		mobiledevicespeed.setModel(new DefaultComboBoxModel<String>(new String[] {"110", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"}));
+		mobiledevicespeed.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"110", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"}));
 		mobiledevicespeed.setSelectedIndex(9);
 		mobiledevicespeed.setBounds(386, 169, 114, 26);
 		frmTransponderLauncher.getContentPane().add(mobiledevicespeed);
@@ -193,13 +195,20 @@ public class StartupConfiguration {
 				launcher.start();
 			} else {
 //				JOptionPane.showMessageDialog(frmTransponderLauncher,"Fill all the required fields before start.");
-				JOptionPane.showConfirmDialog(frmTransponderLauncher, "Fill all the required fields before start.", "Warning",
+				JOptionPane.showConfirmDialog(frmTransponderLauncher,
+						"Fill all the required fields before start.", "Warning",
 						JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			}
 				}
 		});
 		btnNewButton_1.setBounds(386, 263, 114, 27);
 		frmTransponderLauncher.getContentPane().add(btnNewButton_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setIcon(new ImageIcon(StartupConfiguration.class.getResource("/logo.png")));
+		lblNewLabel_2.setBounds(296, 214, 64, 45);
+		frmTransponderLauncher.getContentPane().add(lblNewLabel_2);
 	}
 
 	protected boolean isOK() {
