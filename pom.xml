@@ -29,11 +29,6 @@
 		    	<artifactId>commons-io</artifactId>
 		    	<version>2.6</version>
 			</dependency>
-			<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20150729</version>
-		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
@@ -44,20 +39,95 @@
 		</dependency>
 			</dependencies>
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>3.13.0</version>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.9</source>
-					<target>1.9</target>
+					<source>23</source>
+					<target>23</target>
 				</configuration>
 			</plugin>
-    </plugins>
-  </build>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+					<phase>install</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass>
+				</configuration>
+			</plugin>
+
+    <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <configuration>
+        <archive>
+          <manifest>
+            <mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass>
+          </manifest>
+        </archive>
+        <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+      </configuration>
+      <executions>
+        <execution>
+          <id>make-assembly</id> <!-- this is used for merges -->
+          <phase>package</phase> <!-- bind to the packaging phase -->
+          <goals>
+            <goal>single</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+		</plugins>
+	</build>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   	<properties>
 		<jersey.version>2.35</jersey.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
