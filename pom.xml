@@ -63,7 +63,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass>
+					<!-- <mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass> -->
+					<mainClass>it.cnr.isti.labsedc.transponder.Transponder</mainClass>
 				</configuration>
 			</plugin>
 
@@ -72,7 +73,8 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass>
+            <!-- <mainClass>it.cnr.isti.labsedc.transponder.gui.StartupConfiguration</mainClass> -->
+            <mainClass>it.cnr.isti.labsedc.transponder.Transponder</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>

@@ -70,7 +70,14 @@ public class AT_SMSSender extends Thread {
     }
 
     public static void main(String[] args) {
-        AT_SMSSender thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+3934734734", "Tampe Finocchio");
+    	AT_SMSSender thread = null;
+    	if (args.length == 0) {
+         thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+393476439051", "Tampe Finocchio");
+    	}
+    	else {
+    		System.out.println("SerialPort, PortSpeed, PhoneNumber, TextToSend");
+			thread = new AT_SMSSender(args[0], Integer.parseInt(args[1]), 0000, false, args[2], args[3]);
+		}
         thread.start();
     }
 }
