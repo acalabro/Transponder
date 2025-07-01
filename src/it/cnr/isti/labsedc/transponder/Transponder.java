@@ -14,37 +14,19 @@ public class Transponder {
 	private static boolean isPinRequired = false;
 	
 	
-	public Transponder(String deviceLoRa, int deviceLoRaSpeed, String deviceWiFi, String homePath, String gpsDevice, String Mobile4GDevicePort, int Mobile4GDevicePortSpeed, String smsRecipientString, int pinCode, boolean isPinRequired) {
-			Transponder.deviceLoRa = deviceLoRa;
-			Transponder.deviceLoRaSpeed = deviceLoRaSpeed;
-			Transponder.deviceWiFi = deviceWiFi;
-			Transponder.homePath = homePath;
-			Transponder.gpsDevice = gpsDevice;
-			Transponder.Mobile4GDevicePort = Mobile4GDevicePort;
-			Transponder.Mobile4GDevicePortSpeed = Mobile4GDevicePortSpeed;
-			Transponder.smsRecipientString = smsRecipientString;
-			Transponder.pinCode = pinCode;
-			Transponder.isPinRequired = isPinRequired;			
-	}
-	
-//	public void run() {
-//		GetGPSPosition gpsData = new GetGPSPosition(
-//				Transponder.gpsDevice, Transponder.homePath);
-//		gpsData.start();	
-//		
-//		LoRaAnd4GDispatcher senderLora = new LoRaAnd4GDispatcher(
-//				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed,
-//				Transponder.Mobile4GDevicePort, Transponder.Mobile4GDevicePortSpeed, 
-//				Transponder.pinCode, Transponder.isPinRequired, 
-//				Transponder.smsRecipientString);
-//    	senderLora.start();
-//    	
-//    	WiFiScanner scanner = new  WiFiScanner(
-//    			Transponder.homePath, Transponder.deviceWiFi);
-//    	scanner.start();
+//	public Transponder(String deviceLoRa, int deviceLoRaSpeed, String deviceWiFi, String homePath, String gpsDevice, String Mobile4GDevicePort, int Mobile4GDevicePortSpeed, String smsRecipientString, int pinCode, boolean isPinRequired) {
+//			Transponder.deviceLoRa = deviceLoRa;
+//			Transponder.deviceLoRaSpeed = deviceLoRaSpeed;
+//			Transponder.deviceWiFi = deviceWiFi;
+//			Transponder.homePath = homePath;
+//			Transponder.gpsDevice = gpsDevice;
+//			Transponder.Mobile4GDevicePort = Mobile4GDevicePort;
+//			Transponder.Mobile4GDevicePortSpeed = Mobile4GDevicePortSpeed;
+//			Transponder.smsRecipientString = smsRecipientString;
+//			Transponder.pinCode = pinCode;
+//			Transponder.isPinRequired = isPinRequired;			
 //	}
-	
-	
+//	
 	public static void main(String[] args) {
 		if (args.length > 0) {
 			deviceLoRa = args[0];
@@ -81,4 +63,25 @@ public class Transponder {
     	scanner.start();
     	
 	}
+	
+	
+//	public void run() {
+//		GetGPSPosition gpsData = new GetGPSPosition(
+//				Transponder.gpsDevice, Transponder.homePath);
+//		gpsData.start();	
+//		
+//		LoRaAnd4GDispatcher senderLora = new LoRaAnd4GDispatcher(
+//				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed,
+//				Transponder.Mobile4GDevicePort, Transponder.Mobile4GDevicePortSpeed, 
+//				Transponder.pinCode, Transponder.isPinRequired, 
+//				Transponder.smsRecipientString);
+//    	senderLora.start();
+//    	
+//    	WiFiScanner scanner = new  WiFiScanner(
+//    			Transponder.homePath, Transponder.deviceWiFi);
+//    	scanner.start();
+//	}
+	
+	
+
 }
