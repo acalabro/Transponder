@@ -95,9 +95,12 @@ public class WiFiScanner extends Thread {
 
 					@Override
 					public void run() {
-						if ((System.currentTimeMillis() - lastMessageTime) > 2500 && LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
-							LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
-							System.out.println("For checking connection, an empty message will be sent.");
+						if ((System.currentTimeMillis() - lastMessageTime) > 5000) {
+							if(LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
+								LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
+								System.out.println("For checking connection, an empty message will be sent.");
+							}
+							
 						}
 					}
 		    	}).start();
