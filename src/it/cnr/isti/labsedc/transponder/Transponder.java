@@ -1,6 +1,6 @@
 package it.cnr.isti.labsedc.transponder;
 
-public class Transponder extends Thread{
+public class Transponder {
 
 	private static String deviceWiFi = "wlan1";
 	private static String deviceLoRa = "/dev/ttyUSB0";
@@ -27,22 +27,22 @@ public class Transponder extends Thread{
 			Transponder.isPinRequired = isPinRequired;			
 	}
 	
-	public void run() {
-		GetGPSPosition gpsData = new GetGPSPosition(
-				Transponder.gpsDevice, Transponder.homePath);
-		gpsData.start();	
-		
-		LoRaAnd4GDispatcher senderLora = new LoRaAnd4GDispatcher(
-				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed,
-				Transponder.Mobile4GDevicePort, Transponder.Mobile4GDevicePortSpeed, 
-				Transponder.pinCode, Transponder.isPinRequired, 
-				Transponder.smsRecipientString);
-    	senderLora.start();
-    	
-    	WiFiScanner scanner = new  WiFiScanner(
-    			Transponder.homePath, Transponder.deviceWiFi);
-    	scanner.start();
-	}
+//	public void run() {
+//		GetGPSPosition gpsData = new GetGPSPosition(
+//				Transponder.gpsDevice, Transponder.homePath);
+//		gpsData.start();	
+//		
+//		LoRaAnd4GDispatcher senderLora = new LoRaAnd4GDispatcher(
+//				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed,
+//				Transponder.Mobile4GDevicePort, Transponder.Mobile4GDevicePortSpeed, 
+//				Transponder.pinCode, Transponder.isPinRequired, 
+//				Transponder.smsRecipientString);
+//    	senderLora.start();
+//    	
+//    	WiFiScanner scanner = new  WiFiScanner(
+//    			Transponder.homePath, Transponder.deviceWiFi);
+//    	scanner.start();
+//	}
 	
 	
 	public static void main(String[] args) {

@@ -10,8 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
-import it.cnr.isti.labsedc.transponder.Transponder;
-
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -180,19 +178,19 @@ public class StartupConfiguration {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (isOK()) {
-				Transponder launcher = new Transponder(
-						loradevice.getText(), 
-						Integer.parseInt(loraportspeed.getSelectedItem().toString()), 
-						wifidevice.getText(), 
-						homepath.getText(), 
-						gpsdevice.getText(), 
-						mobiledevice.getText(), 
-						Integer.parseInt(mobiledevicespeed.getSelectedItem().toString()),
-						smsrecipient.getText(),
-						Integer.parseInt(pincode.getText()),
-						pincodecheckbox.isSelected()
-						);
-				launcher.start();
+//				Transponder launcher = new Transponder(
+//						loradevice.getText(), 
+//						Integer.parseInt(loraportspeed.getSelectedItem().toString()), 
+//						wifidevice.getText(), 
+//						homepath.getText(), 
+//						gpsdevice.getText(), 
+//						mobiledevice.getText(), 
+//						Integer.parseInt(mobiledevicespeed.getSelectedItem().toString()),
+//						smsrecipient.getText(),
+//						Integer.parseInt(pincode.getText()),
+//						pincodecheckbox.isSelected()
+//						);
+//				launcher.start();
 			} else {
 //				JOptionPane.showMessageDialog(frmTransponderLauncher,"Fill all the required fields before start.");
 				JOptionPane.showConfirmDialog(frmTransponderLauncher,
