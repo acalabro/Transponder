@@ -27,13 +27,12 @@ public class WiFiScanner extends Thread {
 	public void run() {
 		try {	
 			String[] commandStrings = {"sudo", "tcpdump", "-i", deviceWiFi, "-e", "type", "mgt"};
-//			Process p = Runtime.getRuntime().exec(
-//			"sudo tcpdump -i " + deviceWiFi + " -e type mgt");
 			Process p = Runtime.getRuntime().exec(commandStrings);
-		new Thread(new Runnable() {
-			private String macAddress;
-			private String receivedDb;
-		    
+
+			new Thread(new Runnable() {
+				private String macAddress;
+				private String receivedDb;
+			    
 			public void run() {
 		    	System.out.println("Wi-Fi Probe started");
 		    	
@@ -72,47 +71,36 @@ public class WiFiScanner extends Thread {
 		            e.printStackTrace();
 		        }				
 			}
-			
-			private void writeOnFile(String message) {
-					File theFile = new File(WiFiScanner.homePath + "wifiDump");
-	    			
-					FileWriter write;
-					BufferedWriter stream;
-					try {
-						write = new FileWriter(theFile,true);
-				        stream = new BufferedWriter(write);
-				        
-			            stream.append(message+"\n");
-			            stream.flush();	
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			}
-			
-			void checkPing() {
-		    	try {
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						if ((System.currentTimeMillis() - lastMessageTime) > 5000) {
-							if(LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
-								LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
-								System.out.println("For checking connection, an empty message will be sent.");
-							}
-							lastMessageTime = System.currentTimeMillis();							
-						}
-					}
-		    	}).start();
-		    		} catch (Exception e) {
-		    	}
-			}		
 		}).start();
-		p.waitFor();
-	} catch (InterruptedException | IOException e1) {
-		e1.printStackTrace();
+		}catch (Exception e) {
+		}
 	}
-}
+		
+	private static void writeOnFile(String message) {
+				File theFile = new File(WiFiScanner.homePath + "wifiDump");
+    			
+				FileWriter write;
+				BufferedWriter stream;
+				try {
+					write = new FileWriter(theFile,true);
+			        stream = new BufferedWriter(write);
+			        
+		            stream.append(message+"\n");
+		            stream.flush();	
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+			
+	private static void checkPing() {
+		if ((System.currentTimeMillis() - lastMessageTime) > 5000) {
+			if(LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
+				LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
+				System.out.println("For checking connection, an empty message will be sent.");
+				lastMessageTime = System.currentTimeMillis();
+			}
+		}
+	}
 	
 	private static String readGPS() {
 		FileReader fileReader;
