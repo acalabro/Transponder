@@ -25,7 +25,11 @@ public class LoRaAnd4GDispatcher extends Thread {
 		LoRaAnd4GDispatcher.isPinRequired = isPinRequired;
 		LoRaAnd4GDispatcher.smsRecipientString = smsRecipientString;
 
-		System.out.println("Setting up LoRaAnd4GDispatcher Daemon");
+		System.out.println("Setting up LoRaAnd4GDispatcher Daemon with parameters:\n" + "Device LoRa " + deviceLoRa + " at speed " + deviceLoRaSpeed
+				+ "\n" + "MobileDevice " + Mobile4GDevicePort + " at speed " + Mobile4GDevicePortSpeed
+				+ "\n" + "PinCode " + pinCode + " required " + isPinRequired
+				+ "\n" + "SMS recipient " + smsRecipientString);
+		System.out.println("-----------------------------------");
 	}
 
 	public void run() {		

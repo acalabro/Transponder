@@ -17,7 +17,9 @@ public class WiFiScanner extends Thread {
 		WiFiScanner.homePath = homePath;
 		this.deviceWiFi = deviceWiFi;
 
-		System.out.println("Setting up WiFi Scanner Daemon");
+		System.out.println("Setting up WiFi Scanner Daemon with parameters:\n" + "Device WiFi " + deviceWiFi +
+				"\n" +"and HomePath " + homePath);
+		System.out.println("-----------------------------------");
 	}
 	
 

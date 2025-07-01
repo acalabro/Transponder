@@ -20,7 +20,8 @@ public class GetGPSPosition extends Thread{
 	public GetGPSPosition(String deviceGPS, String pathFile) {
 		GetGPSPosition.deviceGPS = deviceGPS;
 		GetGPSPosition.pathFile = pathFile;
-		System.out.println("Setting up GPS Daemon");
+		System.out.println("Setting up GPS Daemon\n with parameters: " + deviceGPS + " " + pathFile);
+		System.out.println("-----------------------------------");
 	}
 	
 	public void run() {
