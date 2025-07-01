@@ -67,7 +67,7 @@ public class LoRaAnd4GDispatcher extends Thread {
 		try {
 			toSendBuffer.put(capturedString);
 			
-			if (toSendBuffer.size()> 5) {
+			if (toSendBuffer.size()> 50) {
 		    	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, MobileDevicePortSpeed , pinCode, isPinRequired, smsRecipientString, capturedString);
 				mobile4G.start();
 			}
