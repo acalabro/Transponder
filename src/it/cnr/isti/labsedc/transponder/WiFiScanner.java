@@ -72,10 +72,12 @@ public class WiFiScanner extends Thread {
 		        }				
 			}
 		}).start();
-		}catch (Exception e) {
+			p.waitFor();
+		} catch (InterruptedException | IOException e1) {
+			e1.printStackTrace();
 		}
-	}
-		
+	}	
+	
 	private static void writeOnFile(String message) {
 				File theFile = new File(WiFiScanner.homePath + "wifiDump");
     			
