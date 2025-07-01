@@ -12,6 +12,7 @@ public class WiFiScanner extends Thread {
 	
 	private static String homePath;
 	private String deviceWiFi;
+    private static long lastMessageTime;
 	
 	public WiFiScanner(String homePath, String deviceWiFi) {
 		WiFiScanner.homePath = homePath;
@@ -30,7 +31,6 @@ public class WiFiScanner extends Thread {
 //			"sudo tcpdump -i " + deviceWiFi + " -e type mgt");
 			Process p = Runtime.getRuntime().exec(commandStrings);
 		new Thread(new Runnable() {
-		    private long lastMessageTime;
 			private String macAddress;
 			private String receivedDb;
 		    
@@ -65,8 +65,8 @@ public class WiFiScanner extends Thread {
 			            		LoRaAnd4GDispatcher.addToBuffer(capturedString);
 			            		lastMessageTime = System.currentTimeMillis();
 			            		MonitoringConnector.sendEventMessage(capturedString);
-			            		checkPing();
 		                	}
+			        		checkPing();
 			            }
 		        } catch (IOException e) {
 		            e.printStackTrace();
@@ -95,11 +95,9 @@ public class WiFiScanner extends Thread {
 
 					@Override
 					public void run() {
-						while (true) {
-							if ((System.currentTimeMillis() - lastMessageTime) > 2500 && LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
-								LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
-								System.out.println("For checking connection, an empty message will be sent.");
-							}
+						if ((System.currentTimeMillis() - lastMessageTime) > 2500 && LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
+							LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
+							System.out.println("For checking connection, an empty message will be sent.");
 						}
 					}
 		    	}).start();
