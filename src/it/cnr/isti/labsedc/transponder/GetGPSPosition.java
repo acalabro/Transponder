@@ -20,6 +20,7 @@ public class GetGPSPosition extends Thread{
 	public GetGPSPosition(String deviceGPS, String pathFile) {
 		GetGPSPosition.deviceGPS = deviceGPS;
 		GetGPSPosition.pathFile = pathFile;
+		
 		System.out.println("Setting up GPS Daemon\n with parameters: " + deviceGPS + " " + pathFile);
 		System.out.println("-----------------------------------");
 	}
@@ -44,6 +45,7 @@ public class GetGPSPosition extends Thread{
 	                	{
 		            		results = line.split(",");
 		            		if (results[6].compareTo("A") == 0) { //gps signal is valid
+		            			CommonMessageBuffer.setLastKnownGPSpos(results[1]+","+results[3]);
 		            			theFile.delete();
 		            			FileWriter write = new FileWriter(theFile,false);
 		    		        	stream = new BufferedWriter(write);

@@ -12,6 +12,8 @@ public class Transponder {
 	private static String smsRecipientString = "+39347";
 	private static int pinCode = 0000;
 	private static boolean isPinRequired = false;
+	private static String satelliteDevicePort;
+	private static int satelliteDeviceSpeed;
 	
 	
 //	public Transponder(String deviceLoRa, int deviceLoRaSpeed, String deviceWiFi, String homePath, String gpsDevice, String Mobile4GDevicePort, int Mobile4GDevicePortSpeed, String smsRecipientString, int pinCode, boolean isPinRequired) {
@@ -39,29 +41,41 @@ public class Transponder {
 			smsRecipientString = args[7];
 			pinCode = Integer.parseInt(args[8]);
 			isPinRequired = Boolean.parseBoolean(args[9]);
+			satelliteDevicePort = args[10];
+			satelliteDeviceSpeed = Integer.parseInt(args[11]);
 		}
 		else {
 			System.out.println("USAGE:\n"
-					+ "loraDevicePort loRaPortbaudRate WiFiDevice homePath gpsDevicePort Mobile4gDevicePort Mobile4gDevicePortSpeed smsRecipientNumber pinCode isPinRequired\n\n "
-					+ "eg: /dev/ttyUSB0 115200 wlan0 /home/pi/Desktop/ /dev/ttyACM0 /dev/ttyUSB2 115200 +39347347347 1234 false");
+					+ "loraDevicePort loRaPortbaudRate "
+					+ "WiFiDevice "
+					+ "homePath "
+					+ "gpsDevicePort "
+					+ "Mobile4gDevicePort Mobile4gDevicePortSpeed smsRecipientNumber pinCode isPinRequired"
+					+ "satDevicePort satDeviceSpeed\n\n "
+					+ "eg: /dev/ttyUSB0 115200 wlan0 /home/pi/Desktop/ /dev/ttyACM0 /dev/ttyUSB2 115200 +39347347347 1234 false /dev/ttyUSB1 19200");
 			System.exit(2);
 		}
+		
+		CommonMessageBuffer buffer = new CommonMessageBuffer();
 		
 		GetGPSPosition gpsData = new GetGPSPosition(
 				Transponder.gpsDevice, Transponder.homePath);
 		gpsData.start();	
 		
-		LoRaAnd4GDispatcher senderLora = new LoRaAnd4GDispatcher(
-				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed,
-				Transponder.Mobile4GDevicePort, Transponder.Mobile4GDevicePortSpeed, 
-				Transponder.pinCode, Transponder.isPinRequired, 
-				Transponder.smsRecipientString);
+		LoRaDispatcher senderLora = new LoRaDispatcher(
+				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
     	senderLora.start();
+    	
+    	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
+		mobile4G.start();
     	
     	WiFiScanner scanner = new  WiFiScanner(
     			Transponder.homePath, Transponder.deviceWiFi);
     	scanner.start();
     	
+    	SatelliteSender sat = new SatelliteSender(
+    			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
+    	sat.start();
 	}
 	
 	
