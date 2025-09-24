@@ -59,9 +59,9 @@ public class WiFiScanner extends Thread {
 			            		}
 			            			
 			            		//capturedString = "#"+dateFormat.format(date)+"&"+macAddress+"&"+receivedDb+"&"+readGPS()+"#";
-			            		capturedString = "#"+macAddress+"&"+receivedDb+"&"+readGPS()+"#";
+			            		capturedString = "#"+macAddress+"&"+receivedDb+"&"+CommonMessageBuffer.getLastKnownGPSpos()+"#";
+			            		CommonMessageBuffer.addMessageToSend(capturedString);
 			            		writeOnFile(capturedString);	
-			            		LoRaAnd4GDispatcher.addToBuffer(capturedString);
 			            		lastMessageTime = System.currentTimeMillis();
 			            		MonitoringConnector.sendEventMessage(capturedString);
 		                	}
@@ -96,25 +96,24 @@ public class WiFiScanner extends Thread {
 			
 	private static void checkPing() {
 		if ((System.currentTimeMillis() - lastMessageTime) > 5000) {
-			if(LoRaAnd4GDispatcher.toSendBuffer.size() == 0) {
-				LoRaAnd4GDispatcher.addToBuffer("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
+			if(CommonMessageBuffer.messageToSendBuffer.size() == 0) {
+				CommonMessageBuffer.addMessageToSend("#BSSID:00:00:00:00:00:00&-00dBm&0000.00000,00000.00000#");
 				System.out.println("For checking connection, an empty message will be sent.");
 				lastMessageTime = System.currentTimeMillis();
 			}
 		}
-	}
-	
-	private static String readGPS() {
-		FileReader fileReader;
-		BufferedReader reader;
-		String response ="";
-		try {
-			fileReader = new FileReader(WiFiScanner.homePath + "gpsPos");
-			reader = new BufferedReader(fileReader);
-			response = reader.readLine(); 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return response;
-	}
+	}	
+//	private static String readGPS() {
+//		FileReader fileReader;
+//		BufferedReader reader;
+//		String response ="";
+//		try {
+//			fileReader = new FileReader(WiFiScanner.homePath + "gpsPos");
+//			reader = new BufferedReader(fileReader);
+//			response = reader.readLine(); 
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return response;
+//	}
 }

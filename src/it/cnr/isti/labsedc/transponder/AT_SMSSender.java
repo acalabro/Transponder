@@ -19,13 +19,12 @@ public class AT_SMSSender extends Thread {
 	private String smsText = "nonlofa";
 	private int mobileDevicePortSpeed = 9600;
 
-    public AT_SMSSender(String portName, int mobileDevicePortSpeed, int pinCode, boolean isPinRequired, String recipientNumber, String smsText) {
+    public AT_SMSSender(String portName, int mobileDevicePortSpeed, int pinCode, boolean isPinRequired, String recipientNumber) {
         this.portName = portName;
         this.pinCode = pinCode;
         this.isPinRequired = isPinRequired;
         this.recipientNumber = recipientNumber;
         this.mobileDevicePortSpeed  = mobileDevicePortSpeed;
-        this.smsText = smsText;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class AT_SMSSender extends Thread {
                 }
                 sendCommand(outputStream, ENABLESMSMODE); //config card in sms mode
                 sendCommand(outputStream, SETRECIPIENT + recipientNumber + "\"\r"); //set recipient
-                sendCommand(outputStream, smsText + (char) 26); // messageText + CTRL+Z 
+                sendCommand(outputStream, CommonMessageBuffer.getMessageToSend() + (char) 26); // messageText + CTRL+Z 
 
                 System.out.println("Message sent");
 
@@ -72,11 +71,11 @@ public class AT_SMSSender extends Thread {
     public static void main(String[] args) {
     	AT_SMSSender thread = null;
     	if (args.length == 0) {
-         thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+393476439051", "Tampe Finocchio");
+         thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+3930000000");
     	}
     	else {
-    		System.out.println("SerialPort, PortSpeed, PhoneNumber, TextToSend");
-			thread = new AT_SMSSender(args[0], Integer.parseInt(args[1]), 0000, false, args[2], args[3]);
+    		System.out.println("SerialPort, PortSpeed, PhoneNumber");
+			thread = new AT_SMSSender(args[0], Integer.parseInt(args[1]), 0000, false, args[2]);
 		}
         thread.start();
     }
