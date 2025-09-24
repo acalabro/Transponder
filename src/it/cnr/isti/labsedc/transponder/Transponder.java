@@ -69,11 +69,10 @@ public class Transponder {
     	scanner.start();
 		
 		//COMMUNICATION
-    	
     	RoutingManager router = new RoutingManager();
     	router.start();
     	
-		LoRaDispatcher senderLora = new LoRaDispatcher(
+		LoRaSender senderLora = new LoRaSender(
 				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
     	senderLora.start();
     	
