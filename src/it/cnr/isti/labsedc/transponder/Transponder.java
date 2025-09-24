@@ -58,20 +58,27 @@ public class Transponder {
 		
 		CommonMessageBuffer buffer = new CommonMessageBuffer();
 		
+		//POSITIONING
 		GetGPSPosition gpsData = new GetGPSPosition(
 				Transponder.gpsDevice, Transponder.homePath);
 		gpsData.start();	
 		
+		//SENSING
+    	WiFiScanner scanner = new  WiFiScanner(
+    			Transponder.homePath, Transponder.deviceWiFi);
+    	scanner.start();
+		
+		//COMMUNICATION
+    	
+    	RoutingManager router = new RoutingManager();
+    	router.start();
+    	
 		LoRaDispatcher senderLora = new LoRaDispatcher(
 				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
     	senderLora.start();
     	
     	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
 		mobile4G.start();
-    	
-    	WiFiScanner scanner = new  WiFiScanner(
-    			Transponder.homePath, Transponder.deviceWiFi);
-    	scanner.start();
     	
     	SatelliteSender sat = new SatelliteSender(
     			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
