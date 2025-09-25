@@ -16,7 +16,6 @@ public class AT_4G_SMSSender extends Thread {
 	private boolean isPinRequired = false;
 	private int pinCode = 0000;
 	private String recipientNumber = "+39";
-	private String smsText = "nonlofa";
 	private int mobileDevicePortSpeed = 9600;
 	private SerialPort serialPort;
 

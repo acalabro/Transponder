@@ -1,5 +1,6 @@
 package it.cnr.isti.labsedc.transponder;
 
+
 public class Transponder {
 
 	private static String deviceWiFi = "wlan1";
@@ -14,6 +15,7 @@ public class Transponder {
 	private static boolean isPinRequired = false;
 	private static String satelliteDevicePort;
 	private static int satelliteDeviceSpeed;
+	private static CHANNELMODE transmissionMode; 
 		
 	public static void main(String[] args) {
 		if (args.length > 0) {
@@ -29,16 +31,25 @@ public class Transponder {
 			isPinRequired = Boolean.parseBoolean(args[9]);
 			satelliteDevicePort = args[10];
 			satelliteDeviceSpeed = Integer.parseInt(args[11]);
+			transmissionMode = channelModeFromInt(Integer.parseInt(args[12]));
 		}
 		else {
 			System.out.println("USAGE:\n"
-					+ "loraDevicePort loRaPortbaudRate "
-					+ "WiFiDevice "
-					+ "homePath "
-					+ "gpsDevicePort "
-					+ "Mobile4gDevicePort Mobile4gDevicePortSpeed smsRecipientNumber pinCode isPinRequired"
-					+ "satDevicePort satDeviceSpeed\n\n "
-					+ "eg: /dev/ttyUSB0 115200 wlan0 /home/pi/Desktop/ /dev/ttyACM0 /dev/ttyUSB2 115200 +39347347347 1234 false /dev/ttyUSB1 19200");
+					+ "loraDevicePort loRaPortbaudRate\n"
+					+ "WiFiDevice\n"
+					+ "homePath\n"
+					+ "gpsDevicePort\n"
+					+ "Mobile4gDevicePort Mobile4gDevicePortSpeed smsRecipientNumber pinCode isPinRequired\n"
+					+ "satDevicePort satDeviceSpeed\n"
+					+ "channelMode\n\n"
+					+ "eg: /dev/ttyUSB0 115200 wlan0 /home/pi/Desktop/ /dev/ttyACM0 /dev/ttyUSB2 115200 +39347347347 1234 false /dev/ttyUSB1 19200 0\n"
+					+ "\n"
+					+ "The channelMode parameter can be:\n"
+					+ "0 = for LoRa only\n"
+					+ "1 = for 4GSMS only\n"
+					+ "2 = for SAT only\n"
+					+ "3 = for Multi-simultaneous\n"
+					+ "4 = for Multi-cascade\n");
 			System.exit(2);
 		}
 		
@@ -62,9 +73,13 @@ public class Transponder {
     	SatelliteSender sat = new SatelliteSender(Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
     	
 		//COMMUNICATION
-    	RoutingManager router = new RoutingManager(CHANNELMODE.MULTI_CASCADE);
+    	RoutingManager router = new RoutingManager(
+    			senderLora,
+    			mobile4G,
+    			sat,
+    			transmissionMode);
     	router.start();
-    	
+    	 
 //		LoRaSender senderLora = new LoRaSender(
 //				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
 //    	senderLora.start();
@@ -76,4 +91,12 @@ public class Transponder {
 //    			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
 //    	sat.start();
 	}
+	
+	public static CHANNELMODE channelModeFromInt(int i) {
+        CHANNELMODE[] values = CHANNELMODE.values();
+        if (i < 0 || i >= values.length) {
+            throw new IllegalArgumentException("Invalid int value for CHANNELMODE: " + i);
+        }
+        return values[i];
+    }
 }
