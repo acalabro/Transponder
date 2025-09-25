@@ -1,8 +1,6 @@
 package it.cnr.isti.labsedc.transponder;
 
 import java.io.IOException;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class LoRaSender extends Thread {
 		
@@ -12,21 +10,23 @@ public class LoRaSender extends Thread {
 	public LoRaSender(String deviceLoRa, int deviceLoRaSpeed) {
 		LoRaSender.deviceLoRa	= deviceLoRa;
 		LoRaSender.deviceLoRaSpeed = deviceLoRaSpeed;
-
-		System.out.println("Setting up LoRaDispatcher Daemon with parameters:\n" + "Device LoRa " + deviceLoRa + " at speed " + deviceLoRaSpeed);
-		System.out.println("-----------------------------------");
+		setup();
 	}
 
-	public void run() {		
-		//setup
+	private void setup() {
+		System.out.println("Setting up LoRaDispatcher Daemon with parameters:\n" + "Device LoRa " + deviceLoRa + " at speed " + deviceLoRaSpeed);
+		System.out.println("-----------------------------------");
+		
 		try {		
 			System.out.println("SETUP port at " + LoRaSender.deviceLoRaSpeed + " baud with: stty -F "+ LoRaSender.deviceLoRa);
 			String[] cmdline = { "sh", "-c", "stty -F "+ LoRaSender.deviceLoRa, " " + LoRaSender.deviceLoRaSpeed};
 			Process pr = Runtime.getRuntime().exec(cmdline);
 			pr.waitFor();					
 			} catch(IOException | InterruptedException e) {		
-		}
-		
+		}		
+	}
+
+	public void run() {			
 		while(true) {
 			if (CommonMessageBuffer.messageToSendBuffer.size() > 0) {
 					try {

@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-public class AT_SMSSender extends Thread {
+public class AT_4G_SMSSender extends Thread {
 
 	private static final String AT = "AT\r";
 	private static final String SENDSIMPIN = "AT+CPIN=\"";
@@ -18,21 +18,31 @@ public class AT_SMSSender extends Thread {
 	private String recipientNumber = "+39";
 	private String smsText = "nonlofa";
 	private int mobileDevicePortSpeed = 9600;
+	private SerialPort serialPort;
 
-    public AT_SMSSender(String portName, int mobileDevicePortSpeed, int pinCode, boolean isPinRequired, String recipientNumber) {
+    public AT_4G_SMSSender(String portName, int mobileDevicePortSpeed, int pinCode, boolean isPinRequired, String recipientNumber) {
         this.portName = portName;
         this.pinCode = pinCode;
         this.isPinRequired = isPinRequired;
         this.recipientNumber = recipientNumber;
         this.mobileDevicePortSpeed  = mobileDevicePortSpeed;
+        setup();
     }
 
-    @Override
-    public void run() {
-        SerialPort serialPort = SerialPort.getCommPort(portName);
+    private void setup() {   
+        serialPort = SerialPort.getCommPort(portName);
 
         serialPort.setComPortParameters(this.mobileDevicePortSpeed, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
+        		
+	}
+
+	@Override
+    public void run() {
+//        SerialPort serialPort = SerialPort.getCommPort(portName);
+//
+//        serialPort.setComPortParameters(this.mobileDevicePortSpeed, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+//        serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
 
         if (serialPort.openPort()) {
             System.out.println("Port " + portName + " opened");
@@ -69,13 +79,13 @@ public class AT_SMSSender extends Thread {
     }
 
     public static void main(String[] args) {
-    	AT_SMSSender thread = null;
+    	AT_4G_SMSSender thread = null;
     	if (args.length == 0) {
-         thread = new AT_SMSSender("/dev/ttyS0", 115200, 0000, false, "+3930000000");
+         thread = new AT_4G_SMSSender("/dev/ttyS0", 115200, 0000, false, "+3930000000");
     	}
     	else {
     		System.out.println("SerialPort, PortSpeed, PhoneNumber");
-			thread = new AT_SMSSender(args[0], Integer.parseInt(args[1]), 0000, false, args[2]);
+			thread = new AT_4G_SMSSender(args[0], Integer.parseInt(args[1]), 0000, false, args[2]);
 		}
         thread.start();
     }

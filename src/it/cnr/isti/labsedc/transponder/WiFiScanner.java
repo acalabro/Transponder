@@ -3,7 +3,6 @@ package it.cnr.isti.labsedc.transponder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -103,17 +102,4 @@ public class WiFiScanner extends Thread {
 			}
 		}
 	}	
-//	private static String readGPS() {
-//		FileReader fileReader;
-//		BufferedReader reader;
-//		String response ="";
-//		try {
-//			fileReader = new FileReader(WiFiScanner.homePath + "gpsPos");
-//			reader = new BufferedReader(fileReader);
-//			response = reader.readLine(); 
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return response;
-//	}
 }
