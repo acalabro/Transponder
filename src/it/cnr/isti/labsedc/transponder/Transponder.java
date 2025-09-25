@@ -55,7 +55,7 @@ public class Transponder {
     	scanner.start();
 		
 		//COMMUNICATION
-    	RoutingManager router = new RoutingManager();
+    	RoutingManager router = new RoutingManager(CHANNELMODE.MULTI_CASCADE);
     	router.start();
     	
 		LoRaSender senderLora = new LoRaSender(
