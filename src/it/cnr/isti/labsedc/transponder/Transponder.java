@@ -1,6 +1,5 @@
 package it.cnr.isti.labsedc.transponder;
 
-
 public class Transponder {
 
 	private static String deviceWiFi = "wlan1";
