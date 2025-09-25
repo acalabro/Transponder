@@ -11,7 +11,7 @@ public class GetGPSPosition extends Thread{
 
 	private static String deviceGPS = "/dev/ttyACM0";
 	private static String pathFile = "/"; 
-	public static String lastGPSpos = null;
+	public static String lastGPSpos = "00.0000,00.0000";
 	
 	public static void main(String[] args) throws InterruptedException {
 

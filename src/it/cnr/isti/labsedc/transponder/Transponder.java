@@ -54,19 +54,26 @@ public class Transponder {
     			Transponder.homePath, Transponder.deviceWiFi);
     	scanner.start();
 		
+    	//Start communication components
+    	LoRaSender senderLora = new LoRaSender(Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
+    	
+    	AT_4G_SMSSender mobile4G = new AT_4G_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
+    	
+    	SatelliteSender sat = new SatelliteSender(Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
+    	
 		//COMMUNICATION
     	RoutingManager router = new RoutingManager(CHANNELMODE.MULTI_CASCADE);
     	router.start();
     	
-		LoRaSender senderLora = new LoRaSender(
-				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
-    	senderLora.start();
-    	
-    	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
-		mobile4G.start();
-    	
-    	SatelliteSender sat = new SatelliteSender(
-    			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
-    	sat.start();
+//		LoRaSender senderLora = new LoRaSender(
+//				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
+//    	senderLora.start();
+//    	
+//    	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
+//		mobile4G.start();
+//    	
+//    	SatelliteSender sat = new SatelliteSender(
+//    			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
+//    	sat.start();
 	}
 }

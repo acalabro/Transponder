@@ -12,7 +12,7 @@ public class SatelliteSender extends Thread {
 	private static final String ATCGMM = "AT+CGMM\r";
     private static final String OPENSATSTREAM = "AT+SBDWT=\"";
     private static final String SENDMESSAGE = "AT+SBDIX\r";
-    
+    private SerialPort serialPort;
     
 	public static String satelliteDevicePort;
 	public static int satelliteDeviceSpeed;
@@ -21,10 +21,10 @@ public class SatelliteSender extends Thread {
 	public SatelliteSender(String satelliteDevicePort, int satelliteDeviceSpeed) {
 		SatelliteSender.satelliteDevicePort = satelliteDevicePort;
 		SatelliteSender.satelliteDeviceSpeed = satelliteDeviceSpeed;
+		setup();
 	}
 	
-	public void run() {
-		
+	private void setup() {
 		try {		
 			System.out.println("SETUP port at " + SatelliteSender.satelliteDeviceSpeed + " baud with: stty -F "+ SatelliteSender.satelliteDevicePort);
 			String[] cmdline = { "sh", "-c", "stty -F "+ SatelliteSender.satelliteDevicePort, " " + SatelliteSender.satelliteDeviceSpeed};
@@ -33,10 +33,15 @@ public class SatelliteSender extends Thread {
 			} catch(IOException | InterruptedException e) {		
 		}
 		
-		SerialPort serialPort = SerialPort.getCommPort(SatelliteSender.satelliteDevicePort);
+		serialPort = SerialPort.getCommPort(SatelliteSender.satelliteDevicePort);
 
         serialPort.setComPortParameters(SatelliteSender.satelliteDeviceSpeed, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
-        serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
+        serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);		
+	}
+
+	public void run() {
+		
+
 
         if (serialPort.openPort()) {
             System.out.println("Port " + SatelliteSender.satelliteDevicePort + " opened");
