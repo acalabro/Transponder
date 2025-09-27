@@ -78,17 +78,6 @@ public class Transponder {
     			sat,
     			transmissionMode);
     	router.start();
-    	 
-//		LoRaSender senderLora = new LoRaSender(
-//				Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
-//    	senderLora.start();
-//    	
-//    	AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
-//		mobile4G.start();
-//    	
-//    	SatelliteSender sat = new SatelliteSender(
-//    			Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
-//    	sat.start();
 	}
 	
 	public static CHANNELMODE channelModeFromInt(int i) {
@@ -98,4 +87,15 @@ public class Transponder {
         }
         return values[i];
     }
+	
+	//	LoRaSender senderLora = new LoRaSender(
+	//	Transponder.deviceLoRa, Transponder.deviceLoRaSpeed);
+	//senderLora.start();
+	//
+	//AT_SMSSender mobile4G = new AT_SMSSender(Mobile4GDevicePort, Mobile4GDevicePortSpeed, pinCode, isPinRequired, smsRecipientString);
+	//mobile4G.start();
+	//
+	//SatelliteSender sat = new SatelliteSender(
+	//	Transponder.satelliteDevicePort, Transponder.satelliteDeviceSpeed);
+	//sat.start();
 }
